@@ -6,9 +6,13 @@ import {getArrivDate} from "./date.js";
 import {getExitDate} from "./date.js";
 import {renderEmptyOrErrorSearchBlock} from "./search-results.js";
 import {renderSearchResultsBlock} from "./search-results.js";
+import {User, getUserData, getFavoriteAmount} from "./user_template.js";
+import {setStorage} from './setLocalStorage.js'
 
 window.addEventListener('DOMContentLoaded', () => {
-	renderUserBlock("./img/avatar.png", 'Wade Warren', 5)
+	setStorage()
+	const user: User = getUserData()
+	renderUserBlock(getFavoriteAmount(), user.userName, user.avatarURL)
 	renderSearchFormBlock(getArrivDate(), getExitDate())
 	renderSearchStubBlock()
 	renderEmptyOrErrorSearchBlock('Message')
