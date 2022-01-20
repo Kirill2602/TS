@@ -1,24 +1,18 @@
-import {renderSearchFormBlock} from './search-form.js'
-import {renderSearchStubBlock} from './search-results.js'
-import {renderUserBlock} from './user.js'
-import {renderToast} from './lib.js'
-import {getArrivDate} from "./date.js";
-import {getExitDate} from "./date.js";
-import {renderEmptyOrErrorSearchBlock} from "./search-results.js";
-import {renderSearchResultsBlock} from "./search-results.js";
+const API: string = 'https://jsonplaceholder.typicode.com/todos';
 
-window.addEventListener('DOMContentLoaded', () => {
-	renderUserBlock("./img/avatar.png", 'Wade Warren', 5)
-	renderSearchFormBlock(getArrivDate(), getExitDate())
-	renderSearchStubBlock()
-	renderEmptyOrErrorSearchBlock('Message')
-	renderSearchResultsBlock()
-	renderToast(
-		{text: 'Это пример уведомления. Используйте его при необходимости', type: 'success'},
-		{
-			name: 'Понял', handler: () => {
-				console.log('Уведомление закрыто')
-			}
-		}
-	)
-})
+export async function getToDo<T>(request: RequestInfo, count: number): Promise<T> {
+	const response = await fetch(request);
+	const body = await response.json();
+	const filteredBody = body.filter(todo => todo.id <= count);
+	filteredBody.forEach(todo => console.log(todo));
+	return
+}
+
+interface Todo {
+	userId: number;
+	id: number;
+	title: string;
+	completed: boolean;
+}
+
+await getToDo<Todo[]>(API, 10);
