@@ -1,24 +1,31 @@
-import {renderSearchFormBlock} from './search-form.js'
-import {renderSearchStubBlock} from './search-results.js'
-import {renderUserBlock} from './user.js'
-import {renderToast} from './lib.js'
-import {getArrivDate} from "./date.js";
-import {getExitDate} from "./date.js";
-import {renderEmptyOrErrorSearchBlock} from "./search-results.js";
-import {renderSearchResultsBlock} from "./search-results.js";
+//Абстрактный класс MyGraphicsPrimitive2D
+abstract class MyGraphicsPrimitive2D {
+	topPoint: number
+	bottomPoint: number
 
-window.addEventListener('DOMContentLoaded', () => {
-	renderUserBlock("./img/avatar.png", 'Wade Warren', 5)
-	renderSearchFormBlock(getArrivDate(), getExitDate())
-	renderSearchStubBlock()
-	renderEmptyOrErrorSearchBlock('Message')
-	renderSearchResultsBlock()
-	renderToast(
-		{text: 'Это пример уведомления. Используйте его при необходимости', type: 'success'},
-		{
-			name: 'Понял', handler: () => {
-				console.log('Уведомление закрыто')
-			}
-		}
-	)
-})
+	move(value: number): void {
+		console.log('Сместить' + value)
+	}
+}
+
+//абстрактный класс MyAreaPrimitive2D наследуется от MyGraphicsPrimitive2D
+abstract class MyAreaPrimitive2D extends MyGraphicsPrimitive2D {
+	area(): void {
+		console.log('area')
+	}
+}
+
+//класс MyCircle наследуется от MyAreaPrimitive2D
+class MyCircle extends MyAreaPrimitive2D {
+	public centerCircle: number
+	public radius: number
+}
+
+//класс MyRectangle так же наследуется от MyAreaPrimitive2D
+class MyRectangle extends MyAreaPrimitive2D {
+	public width: number
+	public height: number
+}
+
+
+
