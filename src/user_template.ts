@@ -9,7 +9,7 @@ class User {
 }
 
 const getUserData = () => {
-	const user: unknown = JSON.parse(window.localStorage.getItem('user'))
+	const user: unknown = JSON.parse(<string>window.localStorage.getItem('user'))
 	Object.setPrototypeOf(user, User.prototype)
 
 	if (user instanceof User) {
@@ -19,6 +19,7 @@ const getUserData = () => {
 	}
 }
 
-const getFavoriteAmount = () => +window.localStorage.getItem('favoriteAmount')
+
+const getFavoriteAmount = () => +<string>window.localStorage.getItem('favoriteAmount')
 
 export {User, getUserData, getFavoriteAmount}
